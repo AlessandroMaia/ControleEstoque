@@ -14,13 +14,14 @@ namespace ViewProject
 {
     public partial class FormFornecedor : Form
     {
-        private FornecedorController controller = new FornecedorController();
+        private FornecedorController controller;
         private BindingSource dadosFornecedores = new BindingSource();
 
 
-        public FormFornecedor()
+        public FormFornecedor(FornecedorController controller)
         {
             InitializeComponent();
+            this.controller = controller;
             AtualizarDgv();
         }
 
