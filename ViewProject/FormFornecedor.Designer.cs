@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtNomeFornecedor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtCNPJ = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnNovoFornecedor = new System.Windows.Forms.Button();
             this.btnGravarFornecedor = new System.Windows.Forms.Button();
@@ -41,7 +42,6 @@
             this.btnRemoverFornecedor = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvFornecedores = new System.Windows.Forms.DataGridView();
-            this.txtCNPJ = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -126,6 +126,15 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "CNPJ:";
             // 
+            // txtCNPJ
+            // 
+            this.txtCNPJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCNPJ.Location = new System.Drawing.Point(75, 61);
+            this.txtCNPJ.Mask = "99.999.999/9999-99";
+            this.txtCNPJ.Name = "txtCNPJ";
+            this.txtCNPJ.Size = new System.Drawing.Size(474, 23);
+            this.txtCNPJ.TabIndex = 6;
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
@@ -205,6 +214,7 @@
             // 
             this.dgvFornecedores.AllowUserToAddRows = false;
             this.dgvFornecedores.AllowUserToDeleteRows = false;
+            this.dgvFornecedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvFornecedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFornecedores.Location = new System.Drawing.Point(4, 4);
             this.dgvFornecedores.Name = "dgvFornecedores";
@@ -213,15 +223,6 @@
             this.dgvFornecedores.Size = new System.Drawing.Size(545, 258);
             this.dgvFornecedores.TabIndex = 0;
             this.dgvFornecedores.SelectionChanged += new System.EventHandler(this.dgvFornecedores_SelectionChanged);
-            // 
-            // txtCNPJ
-            // 
-            this.txtCNPJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCNPJ.Location = new System.Drawing.Point(75, 61);
-            this.txtCNPJ.Mask = "99.999.999/9999-99";
-            this.txtCNPJ.Name = "txtCNPJ";
-            this.txtCNPJ.Size = new System.Drawing.Size(474, 23);
-            this.txtCNPJ.TabIndex = 6;
             // 
             // FormFornecedor
             // 
@@ -236,6 +237,7 @@
             this.Name = "FormFornecedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manutenção em dados de Fornecedores";
+            this.Shown += new System.EventHandler(this.FormFornecedor_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

@@ -17,14 +17,13 @@ namespace ViewProject
         private FornecedorController controller;
         private BindingSource dadosFornecedores = new BindingSource();
 
-
         public FormFornecedor(FornecedorController controller)
         {
             InitializeComponent();
             this.controller = controller;
-            AtualizarDgv();
+            AtualizarDataGridView();
+            ClearControls();
         }
-
         private void ClearControls()
         {
             dgvFornecedores.ClearSelection();
@@ -33,48 +32,11 @@ namespace ViewProject
             txtCNPJ.Text = string.Empty;
             txtNomeFornecedor.Focus();
         }
-        private void AtualizarDgv()
+        private void AtualizarDataGridView()
         {
             dadosFornecedores.DataSource = this.controller.GetAllFornecedor();
             dgvFornecedores.DataSource = dadosFornecedores;
         }
-
-        private void btnGravarFornecedor_Click(object sender, EventArgs e)
-        {
-            if(txtIdFornecedor.Text == string.Empty)
-            {
-                var fornecedor = this.controller.InsertFornecedor( 
-                    new Fornecedor()
-                    {
-                        Id = Guid.NewGuid(),
-                        Nome = txtNomeFornecedor.Text,
-                        CNPJ = txtCNPJ.Text
-                    }
-                );
-                AtualizarDgv();
-                ClearControls();
-            }
-            else
-            {
-                var fornecedor = this.controller.UpdateFornecedor(
-                     new Fornecedor()
-                     {
-                         Id = new Guid(txtIdFornecedor.Text),
-                         Nome = txtNomeFornecedor.Text,
-                         CNPJ = txtCNPJ.Text
-                     }
-                );
-                AtualizarDgv();
-                ClearControls();
-            }
-            
-        }
-
-        private void btnNovoFornecedor_Click(object sender, EventArgs e)
-        {
-            ClearControls();
-        }
-
         private void dgvFornecedores_SelectionChanged(object sender, EventArgs e)
         {
             if(dgvFornecedores.SelectedRows.Count > 0)
@@ -85,6 +47,24 @@ namespace ViewProject
             }
         }
 
+        private void btnGravarFornecedor_Click(object sender, EventArgs e)
+        {
+            var fornecedor = new Fornecedor()
+            {
+                Id = (txtIdFornecedor.Text == string.Empty ? Guid.NewGuid() : new Guid(txtIdFornecedor.Text)),
+                Nome = txtNomeFornecedor.Text,
+                CNPJ = txtCNPJ.Text
+            };
+
+            fornecedor = (txtIdFornecedor.Text == string.Empty ? this.controller.InsertFornecedor(fornecedor) : this.controller.UpdateFornecedor(fornecedor));
+            
+            AtualizarDataGridView();
+            ClearControls();
+        }
+        private void btnNovoFornecedor_Click(object sender, EventArgs e)
+        {
+            ClearControls();
+        }
         private void btnRemoverFornecedor_Click(object sender, EventArgs e)
         {
             if (txtIdFornecedor.Text == string.Empty)
@@ -93,18 +73,23 @@ namespace ViewProject
             }
             else
             {
+
                 this.controller.RemoverFornecedor(
                     new Fornecedor()
                     {
                         Id = new Guid(txtIdFornecedor.Text)
                     }
                 );
-                AtualizarDgv();
+                AtualizarDataGridView();
                 ClearControls();
             }
         }
-
         private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            ClearControls();
+        }
+
+        private void FormFornecedor_Shown(object sender, EventArgs e)
         {
             ClearControls();
         }

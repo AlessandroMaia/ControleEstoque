@@ -18,7 +18,6 @@ namespace ModelProject
         {
             return Id.GetHashCode();
         }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
