@@ -33,7 +33,6 @@
             this.txtIdFornecedor = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNomeFornecedor = new System.Windows.Forms.TextBox();
-            this.txtCNPJ = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnNovoFornecedor = new System.Windows.Forms.Button();
@@ -42,6 +41,7 @@
             this.btnRemoverFornecedor = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvFornecedores = new System.Windows.Forms.DataGridView();
+            this.txtCNPJ = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -57,8 +57,8 @@
             this.tableLayoutPanel1.Controls.Add(this.txtIdFornecedor, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtNomeFornecedor, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txtCNPJ, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtCNPJ, 1, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 2);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -114,14 +114,6 @@
             this.txtNomeFornecedor.Name = "txtNomeFornecedor";
             this.txtNomeFornecedor.Size = new System.Drawing.Size(474, 23);
             this.txtNomeFornecedor.TabIndex = 3;
-            // 
-            // txtCNPJ
-            // 
-            this.txtCNPJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCNPJ.Location = new System.Drawing.Point(75, 61);
-            this.txtCNPJ.Name = "txtCNPJ";
-            this.txtCNPJ.Size = new System.Drawing.Size(474, 23);
-            this.txtCNPJ.TabIndex = 4;
             // 
             // label3
             // 
@@ -222,6 +214,15 @@
             this.dgvFornecedores.TabIndex = 0;
             this.dgvFornecedores.SelectionChanged += new System.EventHandler(this.dgvFornecedores_SelectionChanged);
             // 
+            // txtCNPJ
+            // 
+            this.txtCNPJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCNPJ.Location = new System.Drawing.Point(75, 61);
+            this.txtCNPJ.Mask = "99.999.999/9999-99";
+            this.txtCNPJ.Name = "txtCNPJ";
+            this.txtCNPJ.Size = new System.Drawing.Size(474, 23);
+            this.txtCNPJ.TabIndex = 6;
+            // 
             // FormFornecedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,7 +252,6 @@
         private System.Windows.Forms.TextBox txtIdFornecedor;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNomeFornecedor;
-        private System.Windows.Forms.TextBox txtCNPJ;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnNovoFornecedor;
@@ -260,5 +260,6 @@
         private System.Windows.Forms.Button btnRemoverFornecedor;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dgvFornecedores;
+        private System.Windows.Forms.MaskedTextBox txtCNPJ;
     }
 }
