@@ -19,13 +19,6 @@ namespace ModelProject
             this.Produtos = new List<ProdutoNotaEntrada>();
         }
 
-        public void RegistrarProdutos(ProdutoNotaEntrada produto)
-        {
-            if (!this.Produtos.Contains(produto))
-            {
-                this.Produtos.Add(produto);
-            }
-        }
 
         public void RemoverProduto(ProdutoNotaEntrada produto)
         {
@@ -35,6 +28,32 @@ namespace ModelProject
         public void RemoverTodosProdutos()
         {
             this.Produtos.Clear();
+        }
+
+        public void RegistrarProdutos(ProdutoNotaEntrada produto)
+        {
+            if (this.Produtos.Contains(produto))
+            {
+                this.Produtos.Remove(produto);
+            }
+            this.Produtos.Add(produto);
+        }
+
+        public bool Equals(NotaEntrada other)
+        {
+            return Id.Equals(other.Id);
+        }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof(NotaEntrada)) return false;
+
+            return Equals((NotaEntrada)obj);
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

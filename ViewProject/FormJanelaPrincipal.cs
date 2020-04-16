@@ -15,6 +15,8 @@ namespace ViewProject
     {
         private FornecedorController fornecedorController = new FornecedorController();
         private ProdutoController produtoController = new ProdutoController();
+        private NotaEntradaController notaEntradaController = new NotaEntradaController();
+
         public FormJanelaPrincipal()
         {
             InitializeComponent();
@@ -28,6 +30,11 @@ namespace ViewProject
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormProduto(produtoController).ShowDialog();
+        }
+
+        private void notaDeEntradaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormNotaEntradaProdutos(notaEntradaController, fornecedorController, produtoController).ShowDialog();
         }
     }
 }

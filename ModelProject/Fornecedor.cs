@@ -26,5 +26,9 @@ namespace ModelProject
 
             return Equals((Fornecedor) obj);
         }
+        public override string ToString()
+        {
+            return this.Nome;
+        }
     }
 }

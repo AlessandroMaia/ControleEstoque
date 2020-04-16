@@ -13,5 +13,7 @@ namespace PersistenceProject
         IList<T> GetAll();
 
         T Update(T n);
+
+
     }
 }
