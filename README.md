@@ -7,7 +7,7 @@
 * Ao abrir o Projeto no Visual Studio, terá a pasta "ADO.NET"
 * Selecione-a e aperte CTRL + SHIFT + A
 * Do Lado esquerdo da tela clique em "Dados" e selecione "Banco de Dados baseado em serviço"
-* Renomeie para "ADO_NETDatabase" na parte inferior da tela e clique em "Adicionar"
+* Nomeie para "ADO_NETDatabase" na parte inferior da tela e clique em "Adicionar"
 
 #### Criando as Tabelas:
 * Aperte CTRL + ALT + S, irá aparecer a coluna de Gerenciador de serviços
