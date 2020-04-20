@@ -1,4 +1,4 @@
-﻿namespace ViewProject
+﻿namespace ControleEstoque.View
 {
     partial class FormNotaEntradaProdutos
     {

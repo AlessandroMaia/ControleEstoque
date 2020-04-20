@@ -6,7 +6,7 @@ namespace ModelProject
 {
     public class Fornecedor
     {
-        public Guid Id { get; set; }
+        public long? Id { get; set; }
         public string Nome { get; set; }
         public string CNPJ { get; set; }
 

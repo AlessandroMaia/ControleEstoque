@@ -6,12 +6,27 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E2432847-CB05-49D8-9B43-0CD8D1DBD804}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ViewProject</RootNamespace>
-    <AssemblyName>ViewProject</AssemblyName>
+    <RootNamespace>ControleEstoque</RootNamespace>
+    <AssemblyName>ControleEstoque</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +47,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ControleEstoque.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,42 +66,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormFornecedor.cs">
+    <Compile Include="ADO_NET\DBConnection.cs" />
+    <Compile Include="Controller\FornecedorController.cs" />
+    <Compile Include="Controller\NotaEntradaController.cs" />
+    <Compile Include="Controller\ProdutoController.cs" />
+    <Compile Include="View\FormFornecedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormFornecedor.Designer.cs">
+    <Compile Include="View\FormFornecedor.Designer.cs">
       <DependentUpon>FormFornecedor.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormJanelaPrincipal.cs">
+    <Compile Include="View\FormJanelaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormJanelaPrincipal.Designer.cs">
+    <Compile Include="View\FormJanelaPrincipal.Designer.cs">
       <DependentUpon>FormJanelaPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormNotaEntradaProdutos.cs">
+    <Compile Include="View\FormNotaEntradaProdutos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormNotaEntradaProdutos.Designer.cs">
+    <Compile Include="View\FormNotaEntradaProdutos.Designer.cs">
       <DependentUpon>FormNotaEntradaProdutos.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormProduto.cs">
+    <Compile Include="View\FormProduto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormProduto.Designer.cs">
+    <Compile Include="View\FormProduto.Designer.cs">
       <DependentUpon>FormProduto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Fornecedor.cs" />
+    <Compile Include="Model\NotaEntrada.cs" />
+    <Compile Include="Model\Produto.cs" />
+    <Compile Include="Model\ProdutoNotaEntrada.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormFornecedor.resx">
+    <EmbeddedResource Include="View\FormFornecedor.resx">
       <DependentUpon>FormFornecedor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormJanelaPrincipal.resx">
+    <EmbeddedResource Include="View\FormJanelaPrincipal.resx">
       <DependentUpon>FormJanelaPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormNotaEntradaProdutos.resx">
+    <EmbeddedResource Include="View\FormNotaEntradaProdutos.resx">
       <DependentUpon>FormNotaEntradaProdutos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormProduto.resx">
+    <EmbeddedResource Include="View\FormProduto.resx">
       <DependentUpon>FormProduto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -92,6 +120,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -107,14 +136,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ControllerProject\ControllerProject.csproj">
-      <Project>{cb0925dd-6f53-4bd7-9a3f-22b68bd8043d}</Project>
-      <Name>ControllerProject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModelProject\ModelProject.csproj">
-      <Project>{619A7D34-0257-4E81-965B-277C10B66175}</Project>
-      <Name>ModelProject</Name>
-    </ProjectReference>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 e x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ADO_NET\ADO_NETDatabase.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ADO_NET\ADO_NETDatabase_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>ADO_NETDatabase.mdf</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

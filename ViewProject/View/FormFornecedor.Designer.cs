@@ -1,4 +1,4 @@
-﻿namespace ViewProject
+﻿namespace ControleEstoque.View
 {
     partial class FormFornecedor
     {
@@ -216,13 +216,15 @@
             this.dgvFornecedores.AllowUserToDeleteRows = false;
             this.dgvFornecedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvFornecedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFornecedores.Location = new System.Drawing.Point(4, 4);
+            this.dgvFornecedores.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvFornecedores.Location = new System.Drawing.Point(0, 0);
+            this.dgvFornecedores.MultiSelect = false;
             this.dgvFornecedores.Name = "dgvFornecedores";
             this.dgvFornecedores.ReadOnly = true;
             this.dgvFornecedores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFornecedores.Size = new System.Drawing.Size(545, 258);
+            this.dgvFornecedores.Size = new System.Drawing.Size(552, 266);
             this.dgvFornecedores.TabIndex = 0;
-            this.dgvFornecedores.SelectionChanged += new System.EventHandler(this.dgvFornecedores_SelectionChanged);
+            this.dgvFornecedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFornecedores_CellClick);
             // 
             // FormFornecedor
             // 
@@ -237,7 +239,6 @@
             this.Name = "FormFornecedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manutenção em dados de Fornecedores";
-            this.Shown += new System.EventHandler(this.FormFornecedor_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

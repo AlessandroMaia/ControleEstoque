@@ -1,5 +1,4 @@
-﻿using ControllerProject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,13 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ViewProject
+namespace ControleEstoque.View
 {
     public partial class FormJanelaPrincipal : Form
     {
-        private FornecedorController fornecedorController = new FornecedorController();
-        private ProdutoController produtoController = new ProdutoController();
-        private NotaEntradaController notaEntradaController = new NotaEntradaController();
 
         public FormJanelaPrincipal()
         {
@@ -24,17 +20,17 @@ namespace ViewProject
 
         private void fornecedoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FormFornecedor(fornecedorController).ShowDialog();
+            new FormFornecedor().ShowDialog();
         }
 
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FormProduto(produtoController).ShowDialog();
+            new FormProduto().ShowDialog();
         }
 
         private void notaDeEntradaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FormNotaEntradaProdutos(notaEntradaController, fornecedorController, produtoController).ShowDialog();
+            new FormNotaEntradaProdutos().ShowDialog();
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ControleEstoque.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ViewProject
+namespace ControleEstoque
 {
     static class Program
     {
