@@ -25,7 +25,24 @@ namespace ControleEstoque.View
             fornecedorController.GetAllFornecedores(dgvFornecedores);
         }
 
-        public void ClearControls()
+        private bool ValidaCampos()
+        {
+            if(txtNomeFornecedor.Text == null || txtNomeFornecedor.Text.Trim() == "")
+            {
+                MessageBox.Show("Preencha o campo NOME!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtNomeFornecedor.Focus();
+                return false;
+            }
+            else if (txtCNPJ.Text == null || txtCNPJ.Text.Length <= 17)
+            {
+                MessageBox.Show("Preencha o campo CNPJ corretamente!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtCNPJ.Focus();
+                return false;
+            }
+
+            return true;
+        }
+        private void ClearControls()
         {
             txtIdFornecedor.Text = string.Empty;
             txtNomeFornecedor.Text = string.Empty;
@@ -50,13 +67,17 @@ namespace ControleEstoque.View
        
         private void btnGravarFornecedor_Click(object sender, EventArgs e)
         {
-            fornecedorController.Save(new Fornecedor()
+            if(ValidaCampos() == true)
             {
-                Id = string.IsNullOrEmpty(txtIdFornecedor.Text) ? (long?) null : Convert.ToInt64(txtIdFornecedor.Text),
-                Nome = txtNomeFornecedor.Text,
-                CNPJ = txtCNPJ.Text
-            });
-            fornecedorController.GetAllFornecedores(dgvFornecedores);
+                fornecedorController.Save(new Fornecedor()
+                {
+                    Id = string.IsNullOrEmpty(txtIdFornecedor.Text) ? (long?)null : Convert.ToInt64(txtIdFornecedor.Text),
+                    Nome = txtNomeFornecedor.Text,
+                    CNPJ = txtCNPJ.Text //.Trim().Replace(",", "").Replace("/", "").Replace("-", "")
+                });
+                fornecedorController.GetAllFornecedores(dgvFornecedores);
+                ClearControls();
+            } 
         }
         private void btnNovoFornecedor_Click(object sender, EventArgs e)
         {
@@ -74,6 +95,7 @@ namespace ControleEstoque.View
                 MessageBox.Show("Fornecedor removido com sucesso!");
             }
             fornecedorController.GetAllFornecedores(dgvFornecedores);
+            ClearControls();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
