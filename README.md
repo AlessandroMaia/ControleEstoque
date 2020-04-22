@@ -22,6 +22,15 @@ CREATE TABLE [dbo].[Fornecedores] (
     [Nome] NVARCHAR (50) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+CREATE TABLE [dbo].[Produtos] (
+    [Id]           BIGINT        IDENTITY (1, 1) NOT NULL,
+    [Descricao]    NVARCHAR (50) NULL,
+    [PrecoDeCusto] FLOAT (53)    NULL,
+    [PrecoDeVenda] FLOAT (53)    NULL,
+    [Estoque]      FLOAT (53)    NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
 ```
 #### Configurando o App.config do projeto
 * Selecione o Banco de Dados Criado e aperte ALT + ENTER
