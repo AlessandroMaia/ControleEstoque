@@ -64,17 +64,13 @@ namespace ControleEstoque.Controller
         }
         private void Insert(Fornecedor fornecedor)
         {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = "insert into Fornecedores(nome, cnpj) values (@nome, @cnpj)";
-                command.Parameters.AddWithValue("@nome", fornecedor.Nome);
-                command.Parameters.AddWithValue("@cnpj", fornecedor.CNPJ);
-                command.ExecuteNonQuery();
-                connection.Close();
-              
-            }
+            var connection = DbConnection.DB_Connection;
+            var command = new SqlCommand("insert into Fornecedores(nome, cnpj) values (@nome, @cnpj)", connection);
+            command.Parameters.AddWithValue("@nome", fornecedor.Nome);
+            command.Parameters.AddWithValue("@cnpj", fornecedor.CNPJ);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
             MessageBox.Show("Fornecedor registrado com sucesso!");
         }
         private void Update(Fornecedor fornecedor)
