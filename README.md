@@ -31,6 +31,27 @@ CREATE TABLE [dbo].[Produtos] (
     [Estoque]      FLOAT (53)    NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+CREATE TABLE [dbo].[NotaDeEntrada] (
+    [Id]           BIGINT        IDENTITY (1, 1) NOT NULL,
+    [IdFornecedor] BIGINT        NOT NULL,
+    [Numero]       NVARCHAR (20) NULL,
+    [DataEmissao]  DATE          NULL,
+    [DataEntrada]  DATE          NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_NotaDeEntrada_ToFornecedores] FOREIGN KEY ([IdFornecedor]) REFERENCES [dbo].[Fornecedores] ([Id])
+);
+
+CREATE TABLE [dbo].[ProdutoNotaDeEntrada] (
+    [Id]                 BIGINT     IDENTITY (1, 1) NOT NULL,
+    [IdProduto]          BIGINT     NOT NULL,
+    [IdNotaDeEntrada]    BIGINT     NOT NULL,
+    [PrecoCustoCompra]   FLOAT (53) NOT NULL,
+    [QuantidadeComprada] FLOAT (53) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_ProdutoNotaDeEntrada_ToProdutos] FOREIGN KEY ([IdProduto]) REFERENCES [dbo].[Produtos] ([Id]),
+    CONSTRAINT [FK_ProdutoNotaDeEntrada_ToNotaDeEntrada] FOREIGN KEY ([IdNotaDeEntrada]) REFERENCES [dbo].[NotaDeEntrada] ([Id])
+);
 ```
 #### Configurando o App.config do projeto
 * Selecione o Banco de Dados Criado e aperte ALT + ENTER
