@@ -16,5 +16,9 @@ namespace ControleEstoque.Model
         public double PrecoDeVenda { get; set; }
         public double Estoque { get; set; }
 
+        public override string ToString()
+        {
+            return Id + " - " + Descricao;
+        }
     }
 }

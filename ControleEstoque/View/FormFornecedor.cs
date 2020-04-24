@@ -25,15 +25,30 @@ namespace ControleEstoque.View
             fornecedorController.GetAllFornecedores(dgvFornecedores);
         }
 
+        private void ChangeStatusControlsFornecedor(bool status)
+        {
+            btnNovoFornecedor.Enabled = !status;
+            btnGravarFornecedor.Enabled = status;
+            btnCancelar.Enabled = status;
+            btnRemoverFornecedor.Enabled = false;
+
+            txtNomeFornecedor.Enabled = status;
+            txtCNPJ.Enabled = status;
+
+            if (fornecedorAtual != null)
+            {
+                btnRemoverFornecedor.Enabled = status;
+            }
+        }
         private bool ValidaCampos()
         {
-            if(txtNomeFornecedor.Text == null || txtNomeFornecedor.Text.Trim() == "")
+            if(txtNomeFornecedor.Text == string.Empty || txtNomeFornecedor.Text.Trim() == "")
             {
                 MessageBox.Show("Preencha o campo NOME!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtNomeFornecedor.Focus();
                 return false;
             }
-            else if (txtCNPJ.Text == null || txtCNPJ.Text.Length <= 17)
+            else if (txtCNPJ.Text == string.Empty || txtCNPJ.Text.Length <= 17)
             {
                 MessageBox.Show("Preencha o campo CNPJ corretamente!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtCNPJ.Focus();
@@ -63,8 +78,9 @@ namespace ControleEstoque.View
             txtIdFornecedor.Text = this.fornecedorAtual.Id.ToString();
             txtCNPJ.Text = this.fornecedorAtual.CNPJ;
             txtNomeFornecedor.Text = this.fornecedorAtual.Nome;
+            ChangeStatusControlsFornecedor(true);
         }
-       
+  
         private void btnGravarFornecedor_Click(object sender, EventArgs e)
         {
             if(ValidaCampos() == true)
@@ -77,11 +93,13 @@ namespace ControleEstoque.View
                 });
                 fornecedorController.GetAllFornecedores(dgvFornecedores);
                 ClearControls();
+                ChangeStatusControlsFornecedor(false);
             } 
         }
         private void btnNovoFornecedor_Click(object sender, EventArgs e)
         {
             ClearControls();
+            ChangeStatusControlsFornecedor(true);
         }
         private void btnRemoverFornecedor_Click(object sender, EventArgs e)
         {
@@ -92,15 +110,21 @@ namespace ControleEstoque.View
             else
             {
                 fornecedorController.Remove(this.fornecedorAtual.Id);
-                MessageBox.Show("Fornecedor removido com sucesso!");
+                fornecedorController.GetAllFornecedores(dgvFornecedores);
+                ClearControls();
+                ChangeStatusControlsFornecedor(false);
             }
-            fornecedorController.GetAllFornecedores(dgvFornecedores);
-            ClearControls();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             ClearControls();
+            fornecedorAtual = null;
+            ChangeStatusControlsFornecedor(false);
         }
 
+        private void FormFornecedor_Shown(object sender, EventArgs e)
+        {
+            ChangeStatusControlsFornecedor(false);
+        }
     }
 }

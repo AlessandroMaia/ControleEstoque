@@ -448,7 +448,7 @@
             this.dgvNotaEntrada.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvNotaEntrada.Size = new System.Drawing.Size(546, 199);
             this.dgvNotaEntrada.TabIndex = 30;
-            this.dgvNotaEntrada.SelectionChanged += new System.EventHandler(this.dgvNotaEntrada_SelectionChanged);
+            this.dgvNotaEntrada.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNotaEntrada_CellClick);
             // 
             // dgvProdutoNotaEntrada
             // 
@@ -462,7 +462,7 @@
             this.dgvProdutoNotaEntrada.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProdutoNotaEntrada.Size = new System.Drawing.Size(550, 199);
             this.dgvProdutoNotaEntrada.TabIndex = 31;
-            this.dgvProdutoNotaEntrada.SelectionChanged += new System.EventHandler(this.dgvProdutoNotaEntrada_SelectionChanged);
+            this.dgvProdutoNotaEntrada.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdutoNotaEntrada_CellClick);
             // 
             // FormNotaEntradaProdutos
             // 

@@ -234,6 +234,7 @@
             this.Name = "FormProduto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manutenção de dados de produtos";
+            this.Shown += new System.EventHandler(this.FormProduto_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdutos)).EndInit();

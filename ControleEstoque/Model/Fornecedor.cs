@@ -15,5 +15,10 @@ namespace ControleEstoque.Model
         public string Nome { get; set; }
         public string CNPJ { get; set; }
 
+        public override string ToString()
+        {
+            return this.Id + " - " + this.Nome;
+        }
+
     }
 }

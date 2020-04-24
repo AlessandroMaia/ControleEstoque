@@ -24,6 +24,43 @@ namespace ControleEstoque.View
             ClearControls();
         }
 
+        private void ChangeStatusControlsProduto(bool status)
+        {
+            btnNovoProduto.Enabled = !status;
+            btnGravarProduto.Enabled = status;
+            btnCancelarProduto.Enabled = status;
+            btnRemoverProduto.Enabled = false;
+
+            txtDescricaoProduto.Enabled = status;
+            txtPrecoCusto.Enabled = status;
+            txtPrecoVenda.Enabled = status;
+            if (produtoAtual != null)
+            {
+                btnRemoverProduto.Enabled = status;
+            }
+        }
+        private bool ValidaCampos()
+        {
+            if(txtDescricaoProduto.Text == string.Empty)
+            {
+                MessageBox.Show("Preencha o campo Descrição!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtDescricaoProduto.Focus();
+                return false;
+            }
+            else if (txtPrecoVenda.Text == string.Empty)
+            {
+                MessageBox.Show("Preencha o campo Preço de venda!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtPrecoVenda.Focus();
+                return false;
+            }
+            else if (txtPrecoCusto.Text == string.Empty)
+            {
+                MessageBox.Show("Preencha o campo Preço de custo!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtPrecoCusto.Focus();
+                return false;
+            }
+            return true;
+        }
         private void ClearControls()
         {
             txtIdProduto.Text = string.Empty;
@@ -44,27 +81,35 @@ namespace ControleEstoque.View
             txtDescricaoProduto.Text = this.produtoAtual.Descricao;
             txtPrecoVenda.Text = this.produtoAtual.PrecoDeVenda.ToString();
             txtPrecoCusto.Text = this.produtoAtual.PrecoDeCusto.ToString();
+            ChangeStatusControlsProduto(true);
         }
 
         private void btnNovoProduto_Click(object sender, EventArgs e)
         {
             ClearControls();
+            ChangeStatusControlsProduto(true);
         }
         private void btnGravarProduto_Click(object sender, EventArgs e)
         {
-            produtoController.Save(new Produto()
+            if (ValidaCampos() == true)
             {
-                Id = string.IsNullOrEmpty(txtIdProduto.Text) ? (long?)null : Convert.ToInt64(txtIdProduto.Text),
-                Descricao = txtDescricaoProduto.Text,
-                PrecoDeVenda = Convert.ToDouble(txtPrecoVenda.Text),
-                PrecoDeCusto = Convert.ToDouble(txtPrecoCusto.Text)
-            });
-            produtoController.GetAllProdutos(dgvProdutos);
-            ClearControls();
+                produtoController.Save(new Produto()
+                {
+                    Id = string.IsNullOrEmpty(txtIdProduto.Text) ? (long?)null : Convert.ToInt64(txtIdProduto.Text),
+                    Descricao = txtDescricaoProduto.Text,
+                    PrecoDeVenda = Convert.ToDouble(txtPrecoVenda.Text),
+                    PrecoDeCusto = Convert.ToDouble(txtPrecoCusto.Text)
+                });
+                produtoController.GetAllProdutos(dgvProdutos);
+                ChangeStatusControlsProduto(false);
+                ClearControls();
+            }
         }
         private void btnCancelarProduto_Click(object sender, EventArgs e)
         {
             ClearControls();
+            produtoAtual = null;
+            ChangeStatusControlsProduto(false);
         }
         private void btnRemoverProduto_Click(object sender, EventArgs e)
         {
@@ -75,11 +120,14 @@ namespace ControleEstoque.View
             else
             {
                 produtoController.Remove(this.produtoAtual.Id);
-                MessageBox.Show("Produto removido com sucesso!");
+                produtoController.GetAllProdutos(dgvProdutos);
+                ClearControls();
+                ChangeStatusControlsProduto(false);
             }
-            produtoController.GetAllProdutos(dgvProdutos);
-            ClearControls();
         }
-
+        private void FormProduto_Shown(object sender, EventArgs e)
+        {
+            ChangeStatusControlsProduto(false);
+        }
     }
 }

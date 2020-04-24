@@ -239,6 +239,7 @@
             this.Name = "FormFornecedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manutenção em dados de Fornecedores";
+            this.Shown += new System.EventHandler(this.FormFornecedor_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

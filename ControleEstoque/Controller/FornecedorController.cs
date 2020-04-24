@@ -49,8 +49,28 @@ namespace ControleEstoque.Controller
             }
             connection.Close();
             return fornecedor;
-        } 
-
+        }
+        public IList<Fornecedor> GetAllAsIList()
+        {
+            var connection = DbConnection.DB_Connection;
+            IList<Fornecedor> fornecedores = new List<Fornecedor>();
+            var adapter = new SqlDataAdapter("select Id, Cnpj, Nome from Fornecedores", connection);
+            var builder = new SqlCommandBuilder(adapter);
+            var table = new DataTable();
+            adapter.Fill(table);
+            connection.Close();
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                var row = table.Rows[i];
+                fornecedores.Add(new Fornecedor()
+                {
+                    Id = Convert.ToInt64(row["Id"]),
+                    CNPJ = (string) row["Cnpj"],
+                    Nome = (string) row["Nome"]
+                });
+            }
+            return fornecedores;
+        }
         public void Save(Fornecedor fornecedor)
         {
             if (fornecedor.Id != null)
@@ -83,6 +103,8 @@ namespace ControleEstoque.Controller
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+
+            MessageBox.Show("Fornecedor atualizado com sucesso!");
         }
         public void Remove(long? id)
         {
@@ -92,6 +114,7 @@ namespace ControleEstoque.Controller
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+            MessageBox.Show("Fornecedor removido com sucesso!");
         }
 
     }

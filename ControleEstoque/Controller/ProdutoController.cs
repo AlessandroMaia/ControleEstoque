@@ -49,6 +49,31 @@ namespace ControleEstoque.Controller
             connectionP.Close();
             return produto;
         }
+
+        public IList<Produto> GetAllAsIList()
+        {
+            var connection = DbConnection.DB_Connection;
+            IList<Produto> produtos = new List<Produto>();
+            var adapter = new SqlDataAdapter("select Id, Descricao, PrecoDeCusto, PrecoDeVenda, Estoque from Produtos", connection);
+            var builder = new SqlCommandBuilder(adapter);
+            var table = new DataTable();
+            adapter.Fill(table);
+            connection.Close();
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                var row = table.Rows[i];
+                produtos.Add(new Produto()
+                {
+                    Id = Convert.ToInt64(row["Id"]),
+                    Descricao = (string) row["Descricao"],
+                    PrecoDeVenda = Convert.ToDouble(row["PrecoDeVenda"]),
+                    PrecoDeCusto = Convert.ToDouble(row["PrecoDeCusto"]),
+                    Estoque = Convert.ToDouble(row["Estoque"])
+                });
+            }
+            return produtos;
+        }
+
         public void Save(Produto produto)
         {
             if (produto.Id != null)
@@ -75,7 +100,7 @@ namespace ControleEstoque.Controller
         private void Update(Produto produto)
         {
             var connection = DbConnection.DB_Connection;
-            var command = new SqlCommand("update Produtos set Descricao=@Descricao, PrecoDeVenda=@PrecoDeVenda, PrecoDeCusto=@PrecoDeCusto", connection);
+            var command = new SqlCommand("update Produtos set Descricao=@Descricao, PrecoDeVenda=@PrecoDeVenda, PrecoDeCusto=@PrecoDeCusto where Id = @Id", connection);
             command.Parameters.AddWithValue("@Id", produto.Id);
             command.Parameters.AddWithValue("@Descricao", produto.Descricao);
             command.Parameters.AddWithValue("@PrecoDeVenda", produto.PrecoDeVenda);
@@ -83,6 +108,7 @@ namespace ControleEstoque.Controller
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+            MessageBox.Show("Produto Atualizado com sucesso!");
         }
         public void Remove(long? Id)
         {
@@ -92,6 +118,7 @@ namespace ControleEstoque.Controller
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+            MessageBox.Show("Produto removido com sucesso!");
         }
     }
 }

@@ -70,6 +70,7 @@
     <Compile Include="Controller\FornecedorController.cs" />
     <Compile Include="Controller\NotaEntradaController.cs" />
     <Compile Include="Controller\ProdutoController.cs" />
+    <Compile Include="Controller\ProdutosNotaEntradaController.cs" />
     <Compile Include="View\FormFornecedor.cs">
       <SubType>Form</SubType>
     </Compile>
