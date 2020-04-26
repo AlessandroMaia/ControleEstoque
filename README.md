@@ -1,5 +1,6 @@
 #                Controle de Estoque
 > Sistema de controle de estoque em Desenvolvimento
+> WinForms e ADO.NET com instruções SQL colocadas de maneira explícita
 
 ## Configurações necessárias para compilação do projeto
 
@@ -13,46 +14,8 @@
 * Aperte CTRL + ALT + S, irá aparecer a coluna de Gerenciador de serviços
 * Expanda "Conexões de Dados", irá aparecer o Banco de dados criado
 * Expanda-o e Clique com o botão direito do mouse em "Nova consulta"
-* Cole o código a baixo:
+* Cole o código que esta no arquivo de texto chamado "Arquivo de SQL"
 
-```
-CREATE TABLE [dbo].[Fornecedores] (
-    [Id]   BIGINT        IDENTITY (1, 1) NOT NULL,
-    [Cnpj] NCHAR (20)    NULL,
-    [Nome] NVARCHAR (50) NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-CREATE TABLE [dbo].[Produtos] (
-    [Id]           BIGINT        IDENTITY (1, 1) NOT NULL,
-    [Descricao]    NVARCHAR (50) NULL,
-    [PrecoDeCusto] FLOAT (53)    NULL,
-    [PrecoDeVenda] FLOAT (53)    NULL,
-    [Estoque]      FLOAT (53)    NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-CREATE TABLE [dbo].[NotaDeEntrada] (
-    [Id]           BIGINT        IDENTITY (1, 1) NOT NULL,
-    [IdFornecedor] BIGINT        NOT NULL,
-    [Numero]       NVARCHAR (20) NULL,
-    [DataEmissao]  DATE          NULL,
-    [DataEntrada]  DATE          NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_NotaDeEntrada_ToFornecedores] FOREIGN KEY ([IdFornecedor]) REFERENCES [dbo].[Fornecedores] ([Id])
-);
-
-CREATE TABLE [dbo].[ProdutoNotaDeEntrada] (
-    [Id]                 BIGINT     IDENTITY (1, 1) NOT NULL,
-    [IdProduto]          BIGINT     NOT NULL,
-    [IdNotaDeEntrada]    BIGINT     NOT NULL,
-    [PrecoCustoCompra]   FLOAT (53) NOT NULL,
-    [QuantidadeComprada] FLOAT (53) NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_ProdutoNotaDeEntrada_ToProdutos] FOREIGN KEY ([IdProduto]) REFERENCES [dbo].[Produtos] ([Id]),
-    CONSTRAINT [FK_ProdutoNotaDeEntrada_ToNotaDeEntrada] FOREIGN KEY ([IdNotaDeEntrada]) REFERENCES [dbo].[NotaDeEntrada] ([Id])
-);
-```
 #### Configurando o App.config do projeto
 * Selecione o Banco de Dados Criado e aperte ALT + ENTER
 * Abrirá a coluna de propriedades
