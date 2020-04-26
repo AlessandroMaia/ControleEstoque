@@ -1,5 +1,5 @@
 #                Controle de Estoque
-> Sistema de controle de estoque em Desenvolvimento
+> Sistema de controle de estoque em Desenvolvimento \
 > WinForms e ADO.NET com instruções SQL colocadas de maneira explícita
 
 ## Configurações necessárias para compilação do projeto
