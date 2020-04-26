@@ -103,16 +103,24 @@ namespace ControleEstoque.View
         }
         private void btnRemoverFornecedor_Click(object sender, EventArgs e)
         {
-            if (txtIdFornecedor.Text == string.Empty)
+            try
             {
-                MessageBox.Show("Selecione o Fornecedor que deseja remover!");
+                if (txtIdFornecedor.Text == string.Empty)
+                {
+                    MessageBox.Show("Selecione o Fornecedor que deseja remover!");
+                }
+                else
+                {
+                    fornecedorController.Remove(this.fornecedorAtual.Id);
+                    fornecedorController.GetAllFornecedores(dgvFornecedores);
+                    ClearControls();
+                    ChangeStatusControlsFornecedor(false);
+                }
             }
-            else
+            catch (Exception)
             {
-                fornecedorController.Remove(this.fornecedorAtual.Id);
-                fornecedorController.GetAllFornecedores(dgvFornecedores);
-                ClearControls();
-                ChangeStatusControlsFornecedor(false);
+
+                MessageBox.Show("Não é possivel excluir fornecedor que está associado a uma nota de entrada!");
             }
         }
         private void btnCancelar_Click(object sender, EventArgs e)

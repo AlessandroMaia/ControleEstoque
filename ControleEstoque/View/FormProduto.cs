@@ -47,13 +47,13 @@ namespace ControleEstoque.View
                 txtDescricaoProduto.Focus();
                 return false;
             }
-            else if (txtPrecoVenda.Text == string.Empty)
+            else if (txtPrecoVenda.Text == string.Empty && Convert.ToDouble(txtPrecoVenda.Text) > 0)
             {
                 MessageBox.Show("Preencha o campo Preço de venda!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtPrecoVenda.Focus();
                 return false;
             }
-            else if (txtPrecoCusto.Text == string.Empty)
+            else if (txtPrecoCusto.Text == string.Empty && Convert.ToDouble(txtPrecoCusto.Text) > 0)
             {
                 MessageBox.Show("Preencha o campo Preço de custo!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtPrecoCusto.Focus();
@@ -113,16 +113,24 @@ namespace ControleEstoque.View
         }
         private void btnRemoverProduto_Click(object sender, EventArgs e)
         {
-            if (txtIdProduto.Text == null)
+            try
             {
-                MessageBox.Show("Selecione o Produto que deseja remover!");
+                if (txtIdProduto.Text == null)
+                {
+                    MessageBox.Show("Selecione o Produto que deseja remover!");
+                }
+                else
+                {
+                    produtoController.Remove(this.produtoAtual.Id);
+                    produtoController.GetAllProdutos(dgvProdutos);
+                    ClearControls();
+                    ChangeStatusControlsProduto(false);
+                }
             }
-            else
+            catch (Exception)
             {
-                produtoController.Remove(this.produtoAtual.Id);
-                produtoController.GetAllProdutos(dgvProdutos);
-                ClearControls();
-                ChangeStatusControlsProduto(false);
+
+                MessageBox.Show("Não é possivel excluir produto que está associado a uma nota de entrada!");
             }
         }
         private void FormProduto_Shown(object sender, EventArgs e)

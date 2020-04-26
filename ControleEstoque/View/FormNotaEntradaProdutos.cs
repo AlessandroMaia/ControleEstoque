@@ -123,9 +123,14 @@ namespace ControleEstoque.View
                 txtNumeroNotaEntrada.Focus();
                 return false;
             }
+            else if (dtpDataEmissao.Value > dtpDataEntrada.Value)
+            {
+                MessageBox.Show("A data de emissao da nota não pode ser mais que a Data de Entrada.\nPreencha corretamente!");
+                dtpDataEmissao.Focus();
+                return false;
+            }
             return true;
         }
-
         private bool ValidaCamposProdutoNota()
         {
             double.TryParse(txtPrecoCustoProdutoNota.Text, out var s);
@@ -136,18 +141,19 @@ namespace ControleEstoque.View
                 cmbProduto.Focus();
                 return false;
             }
-            else if (txtPrecoCustoProdutoNota.Text == string.Empty || s == 0)
+            else if (txtPrecoCustoProdutoNota.Text == string.Empty || s <= 0)
             {
                 MessageBox.Show("Preencha o Preço de custo corretamente");
                 txtPrecoCustoProdutoNota.Focus();
                 return false;
             }
-            else if (txtQuantidadeProduto.Text == string.Empty ||  a == 0)
+            else if (txtQuantidadeProduto.Text == string.Empty ||  a <= 0)
             {
                 MessageBox.Show("Preencha a quantidade corretamente!");
                 txtQuantidadeProduto.Focus();
                 return false;
             }
+            
             return true;
         }
 
@@ -241,7 +247,7 @@ namespace ControleEstoque.View
             }
             else
             {
-                produtosNotaEntradaController.Remove(this.produtoNotaAtual.Id);
+                produtosNotaEntradaController.Remove(this.produtoNotaAtual.ProdutoNota.Id, this.produtoNotaAtual.Id);
                 AtualizarProdutoNotaEntradaDataGridView();
                 ClearControlsProdutoNota();
                 ChangeStatusControlsProdutoNotaDeEntrada(false);
